@@ -1,24 +1,17 @@
-import os
-import tkinter as tk
-import tkinter.filedialog
-import docx2pdf
-import Directories
 from xls2xlsx import XLS2XLSX
-import ppt2pdf
+import tkinter.filedialog
+import tkinter as tk
+import Directories
+import docx2pdf
 import doc2pdf
+import ppt2pdf
+import os
 
 
-def move_file(file_path, destination_folder):
-    """
-    Move the file to the destination folder.
+def move_pdf(file_path: str, destination_folder: None) -> None:
+    """This functions moves pdfs into Stored PDFs folder"""
 
-    Args:
-    - file_path (str): Path of the file to move.
-    - destination_folder (str): Path of the destination folder.
-
-    Returns: None
-    """
-    destination = os.path.join(destination_folder, 'Pdf', os.path.basename(file_path))
+    destination = os.path.join(os.getcwd(), 'Stored PDFs', os.path.basename(file_path))
     try:
         os.rename(file_path, destination)
     except OSError as e:
@@ -99,27 +92,10 @@ def move_image_file(file_path, destination_folder):
     move_file(file_path, destination_folder)
 
 
-def create_destination_folders():
-    """
-    This function creates destination folders for the provided folder names if they do not exist.
-
-    Parameters:
-    folder_names (list): A list of folder names to create.
-
-    """
-    folder_names = ['Stored Files', 'Stored Files/Pdf', 'Stored Files/Images', 'Stored Files/Text', 'Stored Files/Exel']
-    for folder_name in folder_names:
-        folder_path = os.path.join(os.getcwd(), folder_name)
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
-
-
-def convert(file_path):
-    file_name = os.path.basename(file_path)  # get the file name
-    file_type = os.path.splitext(file_name)[1]  # get the file type
-    file_name = os.path.splitext(file_name)[0]  # remove the file extension from the file name
-    print("File Name:", file_name)
-    print("File Type:", file_type)
+def convert(file_path: str) -> None:
+    file_name = os.path.basename(file_path)
+    file_type = os.path.splitext(file_name)[1]
+    file_name = os.path.splitext(file_name)[0]  # Removes the file extension from the file name
     destination_folder = os.path.join(os.getcwd(), 'Stored Files')
     # A Dictionary of functions for handling different file types
     conversion_functions = {
@@ -134,35 +110,34 @@ def convert(file_path):
         '.png': move_image_file,
         '.tif': move_image_file,
         '.tiff': move_image_file,
-        '.pdf': move_file
+        '.pdf': move_pdf,
     }
-    if file_type in conversion_functions:  # if the file type is supported
-        conversion_functions[file_type](file_path, destination_folder)  # call the corresponding function
+
+    if file_type in conversion_functions:  # Checks whether uploaded file type's conversion to pdf is supported
+        conversion_functions[file_type](file_path, destination_folder)  # Calls the corresponding function
         tkinter.messagebox.showinfo("Success!", f"File {file_name} has been uploaded.")
     else:
-        tkinter.messagebox.showerror("Error",
-                                     f"Unsupported file type: {file_type}")  # display an error message for unsupported file types
+        tkinter.messagebox.showerror("Error", f"Unsupported file type: {file_type}")
 
 
-def main():
-    """
-    This function is the main function for uploading a file to the system.
+def upload_file() -> None:
+    """ This function is the main function for uploading a file to the system.
     It prompts the user to select a file, then converts the file to PDF if it is a .docx file
     and moves it to the destination folder. It displays a success message if the file is uploaded successfully.
-    If the file is not supported, it displays an error message.
-
-    """
+    If the file is not supported, it displays an error message. """
     try:
         option_text = "option clicked: --From device"
         print(option_text)
         file_path = tk.filedialog.askopenfilename(title="Select a file")
         if file_path:
-            create_destination_folders()
+            Directories.create_root_folder_dir(['Stored Files'])
+            for sub_folder in ['Pdf', 'Images', 'Text', 'Excel']:
+                Directories.create_sub_folder_dir('Stored Files', sub_folder)
+            convert(file_path)
 
-            convert(file_name, file_type, file_path)
     except Exception as e:
-        tkinter.messagebox.showerror("Error", str(e))  # display an error message for any other errors
+        tkinter.messagebox.showerror("Error", str(e))
 
 
 if __name__ == "__main__":
-    main()
+    upload_file()

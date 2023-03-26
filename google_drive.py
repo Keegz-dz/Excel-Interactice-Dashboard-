@@ -13,7 +13,7 @@ def getfilepath_drive() -> None:
     option_text = "option clicked : --From Google Drive"
     print(option_text)
     # Prompt the user to select the file they just downloaded
-    downloaded_file_path = tk.filedialog.askopenfilename(title="Select the Google Drive file you just downloaded")
+    downloaded_file_path = tk.filedialog.askopenfilename(title="Select the downloaded Google Drive file")
 
     if downloaded_file_path:
         file_to_pdf.create_destination_folders()
