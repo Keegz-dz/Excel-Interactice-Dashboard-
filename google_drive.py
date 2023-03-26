@@ -15,9 +15,9 @@ def getfilepath_drive() -> None:
     # Prompt the user to select the file they just downloaded
     downloaded_file_path = tk.filedialog.askopenfilename(title="Select the Google Drive file you just downloaded")
 
-    # if downloaded_file_path:
-    #     file_to_pdf.create_destination_folders()
-    #     file_to_pdf.convert(downloaded_file_path)  # Convert accepted file type into PDF
+    if downloaded_file_path:
+        file_to_pdf.create_destination_folders()
+        file_to_pdf.convert(downloaded_file_path)  # Converts accepted file type into PDF
 
 
 if __name__ == "__main__":
