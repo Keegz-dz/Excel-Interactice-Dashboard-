@@ -10,7 +10,7 @@ import os
 def MovePdf(file_path: str) -> None:
     """This functions moves pdfs into Stored PDFs folder"""
 
-    destination = os.path.join(os.getcwd(), 'Stored Files\\Pdf', os.path.basename(file_path))
+    destination = os.path.join(os.getcwd(), 'Stored PDFs', os.path.basename(file_path))
     try:
         os.rename(file_path, destination)
     except OSError as e:
@@ -20,7 +20,7 @@ def MovePdf(file_path: str) -> None:
 def DocConvertPdf(file_path: str) -> None:
     """This Function converts Doc file types into pdf format"""
 
-    destination = os.path.join(os.getcwd(), 'Stored Files\\Pdf', os.path.basename(file_path))
+    destination = os.path.join(os.getcwd(), 'Stored PDFs', os.path.basename(file_path))
     try:
         doc2pdf.convert(file_path, destination)
         print("Conversion successful!")
@@ -46,6 +46,7 @@ def MoveExcel(file_path):
 
 
 def conversion(file_path: str) -> None:
+
     file_name = os.path.basename(file_path)
     file_type = os.path.splitext(file_name)[1]
     file_name = os.path.splitext(file_name)[0]  # Removes the file extension from the file name
@@ -78,6 +79,7 @@ def upload_file() -> None:
     It prompts the user to select a file, then converts the file to PDF if it is a .docx file
     and moves it to the destination folder. It displays a success message if the file is uploaded successfully.
     If the file is not supported, it displays an error message. """
+
     try:
         option_text = "option clicked: --From device"
         print(option_text)
