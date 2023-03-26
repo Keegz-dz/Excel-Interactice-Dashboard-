@@ -79,6 +79,7 @@ def upload_file() -> None:
     It prompts the user to select a file, then converts the file to PDF if it is a .docx file
     and moves it to the destination folder. It displays a success message if the file is uploaded successfully.
     If the file is not supported, it displays an error message. """
+
     try:
         option_text = "option clicked: --From device"
         print(option_text)
