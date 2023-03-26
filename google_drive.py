@@ -1,4 +1,4 @@
-from file_to_pdf import convert
+import file_to_pdf
 import tkinter as tk
 import webbrowser
 
@@ -6,6 +6,9 @@ google_drive_url = "https://drive.google.com/drive/my-drive"
 
 
 def getfilepath_drive() -> None:
+    """This Function opens web Google Drive and prompts the user to download required file to system download folder
+    and then prompts the user to select the file from downloads folder """
+
     webbrowser.open_new_tab(google_drive_url)  # Opens Google Drive in a new browser tab
     option_text = "option clicked : --From Google Drive"
     print(option_text)
@@ -13,7 +16,8 @@ def getfilepath_drive() -> None:
     downloaded_file_path = tk.filedialog.askopenfilename(title="Select the Google Drive file you just downloaded")
 
     # if downloaded_file_path:
-    #     convert(file_name, file_type, file_path)  # Convert accepted file type into PDF
+    #     file_to_pdf.create_destination_folders()
+    #     file_to_pdf.convert(downloaded_file_path)  # Convert accepted file type into PDF
 
 
 if __name__ == "__main__":

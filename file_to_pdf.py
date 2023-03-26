@@ -114,7 +114,12 @@ def create_destination_folders():
             os.makedirs(folder_path)
 
 
-def convert(file_name, file_type, file_path):
+def convert(file_path):
+    file_name = os.path.basename(file_path)  # get the file name
+    file_type = os.path.splitext(file_name)[1]  # get the file type
+    file_name = os.path.splitext(file_name)[0]  # remove the file extension from the file name
+    print("File Name:", file_name)
+    print("File Type:", file_type)
     destination_folder = os.path.join(os.getcwd(), 'Stored Files')
     # A Dictionary of functions for handling different file types
     conversion_functions = {
@@ -152,11 +157,6 @@ def main():
         print(option_text)
         file_path = tk.filedialog.askopenfilename(title="Select a file")
         if file_path:
-            file_name = os.path.basename(file_path)  # get the file name
-            file_type = os.path.splitext(file_name)[1]  # get the file type
-            file_name = os.path.splitext(file_name)[0]  # remove the file extension from the file name
-            print("File Name:", file_name)
-            print("File Type:", file_type)
             create_destination_folders()
 
             convert(file_name, file_type, file_path)

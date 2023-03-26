@@ -5,7 +5,7 @@ from PIL import Image
 import Directories
 import os
 from file_to_pdf import main as m1
-from google import main as m2
+from google_drive import main as m2
 
 
 # import google_drive
