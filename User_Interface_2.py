@@ -10,7 +10,7 @@ from google_drive import main as m2
 
 # import google_drive
 
-class Main_Frame(customtkinter.CTkFrame):
+class MainFrame(customtkinter.CTkFrame):
 
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
@@ -38,7 +38,7 @@ class Main_Frame(customtkinter.CTkFrame):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
 
-class Main_software(customtkinter.CTk):
+class MainSoftware(customtkinter.CTk):
     customtkinter.set_appearance_mode("System")
     customtkinter.set_default_color_theme("blue")
 
@@ -75,7 +75,7 @@ class Main_software(customtkinter.CTk):
         # self.grid_columnconfigure(0, weight=1)
 
         # all the frames
-        self.my_frame = Main_Frame(master=self, border_color='blue', )
+        self.my_frame = MainFrame(master=self, border_color='blue', )
         self.my_frame.grid(row=0, column=0, padx=20,
                            pady=(50, 20), sticky="nsew")
 
@@ -117,5 +117,5 @@ class Main_software(customtkinter.CTk):
 
 
 if __name__ == "__main__":
-    Main_software = Main_software()
-    Main_software.mainloop()
+    MainSoftware = MainSoftware()
+    MainSoftware.mainloop()

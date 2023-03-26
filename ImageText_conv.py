@@ -9,6 +9,7 @@ import os
 def iterate_files(root_input_dir, root_output_dir) -> None:
     """ This functions iterates through the pdf files stored in root input directory and creates a sub folder with
     pdf file extension as its name and stores the sub folder created in root output directory """
+
     try:
         Directories.create_root_folder_dir([root_input_dir, root_output_dir])
         for entry in os.scandir(os.path.join(os.getcwd(), root_input_dir)):
@@ -24,6 +25,7 @@ def convert_bytes(pdf_name: str, pdf_path: str, sub_folder_dir: str) -> None:
     """" This function converts pdf into PIL images , each image_pg-no is then saved as JPEG image to  BytesIO object.
     The BytesIO object is then used to load the image data into a Pillow Image object,
     which is sent to OCR conversion function """
+
     try:
         pages = pdf2image.convert_from_path(pdf_path, 400)
         for page_no, page in enumerate(pages):
