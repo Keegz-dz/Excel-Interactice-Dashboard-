@@ -4,12 +4,12 @@ import os
 import cv2
 import numpy as np
 
-os.chdir("../..")
+
 path = os.getcwd()
-outputs_directory = os.path.join(os.path.join(path, "OCR"), "Outputs")
+outputs_directory = os.path.join(os.path.join(path, "../OCR"), "Outputs")
 print(outputs_directory)
-images_directory = os.path.join(os.path.join(path, "OCR"), "Testing Images")
-print("/Users/keegz_dsouza/Documents/Excel Dashboard Visualization/mini-project/OCR/Testing Images")
+images_directory = os.path.join(os.path.join(path, "../OCR"), "Testing Images")
+
 
 os.chdir(images_directory)
 
