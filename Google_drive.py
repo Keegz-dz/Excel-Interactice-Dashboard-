@@ -1,4 +1,4 @@
-import file_to_pdf
+import FilePdf_conv
 import tkinter as tk
 import webbrowser
 
@@ -16,7 +16,7 @@ def getfilepath_drive() -> None:
     downloaded_file_path = tk.filedialog.askopenfilename(title="Select the downloaded Google Drive file")
 
     if downloaded_file_path:
-        file_to_pdf.conversion(downloaded_file_path)  # Converts accepted file type into PDF
+        FilePdf_conv.conversion(downloaded_file_path)  # Converts accepted file type into PDF
 
 
 if __name__ == "__main__":

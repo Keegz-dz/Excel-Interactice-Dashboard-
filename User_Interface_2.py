@@ -4,8 +4,8 @@ import customtkinter
 from PIL import Image
 import Directories
 import os
-from file_to_pdf import main as m1
-from google_drive import main as m2
+from FilePdf_conv import upload_file
+from Google_drive import getfilepath_drive
 
 
 # import google_drive
@@ -45,10 +45,10 @@ class MainSoftware(customtkinter.CTk):
     def handle_options(self, choice):
 
         if choice == "From device":
-            m1()
+            upload_file()
             pass
         if choice == "From Google Drive":
-            m2()
+            getfilepath_drive()
             pass
 
     def handle_button_1(self):

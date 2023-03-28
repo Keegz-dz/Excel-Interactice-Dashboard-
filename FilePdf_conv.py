@@ -8,7 +8,7 @@ from PIL import Image
 
 
 def MovePdf(file_path: str) -> None:
-    """This functions moves pdfs into Stored PDFs folder"""
+    """This function moves pdfs into Stored PDFs folder"""
 
     destination = os.path.join(os.getcwd(), 'Stored Pdfs', os.path.basename(file_path))
     try:
@@ -18,7 +18,7 @@ def MovePdf(file_path: str) -> None:
 
 
 def DocConvertPdf(file_path: str) -> None:
-    """This Function converts Doc file types into pdf format"""
+    """This function converts Doc file types into pdf format and stores it into Stored PDFs folder"""
 
     destination = os.path.join(os.getcwd(), 'Stored Pdfs', os.path.basename(file_path))
     try:
@@ -29,6 +29,7 @@ def DocConvertPdf(file_path: str) -> None:
 
 
 def MoveExcel(file_path):
+    """Work in Progress, call it only once we have css file formats ready"""
     destination = os.path.join(os.getcwd(), 'Stored Pdfs', os.path.basename(file_path))
     if file_path.endswith('.xlsx'):
         os.rename(file_path, destination)
@@ -46,6 +47,7 @@ def MoveExcel(file_path):
 
 
 def ImgConvertPdf(file_path: str) -> None:
+    """This function converts images into pdf and stores it into Stored PDFs folder """
     destination = os.path.join(os.getcwd(), 'Stored Pdfs', os.path.basename(file_path))
     image = Image.open(file_path)
     pdf_path = os.path.splitext(file_path)[0] + '.pdf'
@@ -54,6 +56,8 @@ def ImgConvertPdf(file_path: str) -> None:
 
 
 def conversion(file_path: str) -> None:
+    """This function checks the uploaded file type and then calls the appropriate function required to convert the
+    file into pdf """
     file_name = os.path.basename(file_path)
     file_type = os.path.splitext(file_name)[1]
     file_name = os.path.splitext(file_name)[0]  # Removes the file extension from the file name
@@ -81,7 +85,7 @@ def conversion(file_path: str) -> None:
 
 def upload_file() -> None:
     """ This function is the main function for uploading a file to the system.
-    It prompts the user to select a file, then converts the file to PDF if it is a .docx file
+    It prompts the user to select a file, then converts the file to PDF
     and moves it to the destination folder. It displays a success message if the file is uploaded successfully.
     If the file is not supported, it displays an error message. """
     try:
