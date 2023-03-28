@@ -30,6 +30,7 @@ def DocConvertPdf(file_path: str) -> None:
 
 def MoveExcel(file_path):
     """Work in Progress, call it only once we have css file formats ready"""
+
     destination = os.path.join(os.getcwd(), 'Stored Pdfs', os.path.basename(file_path))
     if file_path.endswith('.xlsx'):
         os.rename(file_path, destination)
@@ -91,7 +92,8 @@ def upload_file() -> None:
     try:
         option_text = "option clicked: --From device"
         print(option_text)
-        file_path = tk.filedialog.askopenfilename(title="Select a file")
+        file_path = tk.filedialog.askopenfilename(title="Select a file",
+                                                  filetypes=[("PDF files", "*.pdf"), ("All files", "*.*")])
         if file_path:
             Directories.create_root_folder_dir(['Stored Pdfs'])
             conversion(file_path)

@@ -6,7 +6,7 @@ import io
 import os
 
 
-def iterate_files(root_input_dir, root_output_dir) -> None:
+def iterate_files(root_input_dir: str, root_output_dir: str) -> None:
     """ This functions iterates through the pdf files stored in root input directory and creates a sub folder with
     pdf file extension as its name and stores the sub folder created in root output directory """
 

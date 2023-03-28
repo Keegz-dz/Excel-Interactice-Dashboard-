@@ -2,11 +2,12 @@ import tkinter as tk
 import tkinter.messagebox
 import customtkinter
 from PIL import Image
-import Directories
 import os
+from FilePdf_conv import upload_file
+from Google_drive import getfilepath_drive
 
 
-class MyFrame(customtkinter.CTkFrame):
+class MainFrame(customtkinter.CTkFrame):
 
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
@@ -17,9 +18,9 @@ class MyFrame(customtkinter.CTkFrame):
 
         # adding labels
         self.label = customtkinter.CTkLabel(
-            self, text="PDFMate", font=self.my_font)
+            self, text="PDFMate", font=self.my_font, text_color='BLUE')
         self.appearance_mode_label = customtkinter.CTkLabel(
-            self, text="Appearance Mode :", anchor="w")
+            self, text="Appearance Mode :", anchor="w", text_color='BLUE')
 
         # adding options
         self.file_options1 = customtkinter.CTkOptionMenu(
@@ -34,27 +35,18 @@ class MyFrame(customtkinter.CTkFrame):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
 
-class App(customtkinter.CTk):
+class MainSoftware(customtkinter.CTk):
     customtkinter.set_appearance_mode("System")
     customtkinter.set_default_color_theme("blue")
 
     def handle_options(self, choice):
-        self.option_text = f"option clicked: {choice}"
-        print(self.option_text)
-        if choice == 'From device':
-            self.file_name = tk.filedialog.askopenfilename(
-                title="select file name", )
-            if self.file_name:
-                tkinter.messagebox.showinfo("Success!", f"File {self.file_name} has been uploaded.")
-                # Path of the destination folder
-                Directories.create_root_folder_dir(['Stored PDFs'])
-                self.destination_folder = os.path.join(os.getcwd(), 'Stored PDFs')
 
-                # Join the destination folder path and the file name
-                self.destination = os.path.join(self.destination_folder, os.path.basename(self.file_name))
-
-                # Move the file to the destination folder
-                os.rename(self.file_name, self.destination)
+        if choice == "From device":
+            upload_file()
+            pass
+        if choice == "From Google Drive":
+            getfilepath_drive()
+            pass
 
     def handle_button_1(self):
         self.button_1_text = "button 1  clicked"
@@ -75,11 +67,12 @@ class App(customtkinter.CTk):
         self.file_name = None
         self.title("Excel Dashboard Automation")
         self.geometry("900x600")
+        self.resizable(False, False)
         # self.grid_rowconfigure(0, weight=1)
         # self.grid_columnconfigure(0, weight=1)
 
         # all the frames
-        self.my_frame = MyFrame(master=self, border_color='blue', )
+        self.my_frame = MainFrame(master=self, border_color='blue', )
         self.my_frame.grid(row=0, column=0, padx=20,
                            pady=(50, 20), sticky="nsew")
 
@@ -91,16 +84,18 @@ class App(customtkinter.CTk):
             self.my_frame, width=420, height=200, corner_radius=10, border_color='blue', )
         self.frame2.grid(row=3, column=0, padx=20, pady=20, sticky="nsew")
         self.my_image = customtkinter.CTkImage(
-            light_image=Image.open(os.path.join(os.getcwd(), '1.png')), size=(30, 30))
+            light_image=Image.open(os.path.join(os.getcwd(), 'FolderIcon.png')), size=(30, 30))
 
         self.file_options = customtkinter.CTkOptionMenu(self.frame2, values=[
-            "Choose Files", "From device", "From Google Drive"], command=self.handle_options, corner_radius=8)
+            "From device", "From Google Drive"], command=self.handle_options, corner_radius=8)
 
         # buttons and labels for frame 2
         self.label1 = customtkinter.CTkLabel(
-            self.frame2, text="\n", image=self.my_image, compound=tkinter.BOTTOM, corner_radius=8)
+            self.frame2, text="\n", image=self.my_image, compound=tkinter.BOTTOM, corner_radius=8, text_color='BLUE')
         self.label2 = customtkinter.CTkLabel(
             self.frame2, text="drop your pdf files here \n", compound=tkinter.BOTTOM, corner_radius=8)
+        self.label3 = customtkinter.CTkLabel(
+            self.frame2, text="CHOOSE YOUR OPTION", compound=tkinter.BOTTOM, corner_radius=8, text_color='BLUE')
 
         # buttons and labels for frame 2
         self.button_1 = customtkinter.CTkButton(self.frame1, text="Upload document", command=self.handle_button_1(),
@@ -108,14 +103,16 @@ class App(customtkinter.CTk):
         self.button_2 = customtkinter.CTkButton(
             self.frame1, text="Choose data extracting rules", command=self.handle_button_2, corner_radius=8)
 
-        # addding widgets
+        # adding widgets
         self.button_1.pack(side=tk.LEFT)
         self.button_2.pack(side=tk.RIGHT)
         self.label1.pack(padx=(0, 00), pady=(20, 0), )
+        self.label3.pack(padx=(0, 00), pady=(5, 5), )
+
         self.file_options.pack(padx=(0, 00), pady=(0, 0))
         self.label2.pack(padx=(0, 00), pady=(5, 50), )
 
 
 if __name__ == "__main__":
-    app = App()
-    app.mainloop()
+    MainSoftware = MainSoftware()
+    MainSoftware.mainloop()
